@@ -4,6 +4,7 @@ import com.springboot.entity.User;
 import com.springboot.repository.UserRepository;
 import com.springboot.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,8 +22,14 @@ public class UserSerivceImpl implements UserService {
         return userRepository.findAll();
     }
 
+    @Transactional
     @Override
     public User save(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.findByEmail(email) != null;
     }
 }
